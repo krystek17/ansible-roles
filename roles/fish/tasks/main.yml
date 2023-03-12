@@ -1,0 +1,21 @@
+- name: Install on Ubuntu
+  ansible.builtin.include_tasks: ubuntu.yml
+  when: ansible_distribution == "Ubuntu"
+
+- name: Install on Fedora
+  ansible.builtin.include_tasks: fedora.yml
+  when: ansible_distribution == "Fedora"
+
+- name: Install on Arch linux
+  ansible.builtin.include_tasks: arch.yml
+  when: ansible_os_family == "Archlinux"
+
+- name: Configure & clone fish folder
+  ansible.builtin.include_tasks: config.yml
+
+- name: Install starship
+  ansible.builtin.shell: sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --yes
+  changed_when: false
+
+- name: Install fisher
+  ansible.builtin.include_tasks: fisher.yml

@@ -1,0 +1,12 @@
+packages:
+  - fish
+  - fd-find # required for fzf plugin
+  - fzf     # required for fzf plugin
+  - bat     # required for fzf plugin
+
+arch:       # for arch linux
+  - fish
+  - fd
+  - fzf
+  - bat
+  - git

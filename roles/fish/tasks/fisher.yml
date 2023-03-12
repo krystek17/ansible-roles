@@ -1,0 +1,19 @@
+- name: Install fisher
+  ansible.builtin.get_url:
+    url: "https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish"
+    dest: "/home/{{ username }}/.config/fish/functions/fisher.fish"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0755"
+
+- name: Install fish plugins
+  become_user: "{{ username }}"
+  ansible.builtin.shell:
+  args:
+    cmd: "fisher install {{ item }}"
+    executable: /usr/bin/fish
+  changed_when: true
+  loop:
+    - jorgebucaran/autopair.fish
+    - patrickf1/fzf.fish
+    - patrickf1/colored_man_pages.fish

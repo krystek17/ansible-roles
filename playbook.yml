@@ -1,0 +1,5 @@
+- name: Install roles
+  hosts: all
+  vars:
+    username: 
+  roles:

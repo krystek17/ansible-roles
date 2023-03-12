@@ -1,0 +1,35 @@
+- name: Create folder
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.config"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0754"
+
+- name: Default shell
+  ansible.builtin.user:
+    name: "{{ username }}"
+    shell: /usr/bin/fish
+
+- name: Clone dotfiles
+  ansible.builtin.git:
+    repo: "https://codeberg.org/krystek/dotfiles.git"
+    dest: /tmp/dotfiles
+    version: master
+
+- name: Copy fish folder
+  ansible.builtin.copy:
+    src: /tmp/dotfiles/fish
+    dest: "/home/{{ username }}/.config/"
+    remote_src: true
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0754"
+
+- name: Create fisher folder
+  ansible.builtin.file:
+    path: "/home/{{ username }}/.config/fish/functions"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: "0755"
