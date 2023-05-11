@@ -1,0 +1,17 @@
+- name: Install prerequisites
+  become: true
+  community.general.pacman:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - git
+    - xclip
+    - neovim
+    - nodejs
+    - npm
+    - ripgrep
+    - fd
+    - python3
+    - python-pip
+    - python-setuptools
+    - gcc

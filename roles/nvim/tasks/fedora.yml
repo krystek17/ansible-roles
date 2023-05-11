@@ -1,0 +1,16 @@
+- name: Install prerequisites
+  become: true
+  ansible.builtin.dnf:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - gcc-c++
+    - xclip
+    - git
+    - neovim
+    - python3
+    - pip
+    - nodejs
+    - ripgrep
+    - fd-find
+    - golang

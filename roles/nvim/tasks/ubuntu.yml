@@ -1,0 +1,38 @@
+- name: Install prerequisites
+  become: true
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  loop:
+    - gcc
+    - xclip
+    - g++-10-powerpc64-linux-gnu
+    - g++
+    - python3-pip
+    - golang
+    - fd-find
+    - ripgrep
+
+- name: Add keys
+  ansible.builtin.apt_key:
+    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+    state: present
+
+- name: Add repo
+  ansible.builtin.apt_repository:
+    repo: "{{ item }}"
+    state: present
+  loop:
+    - deb https://deb.nodesource.com/node_14.x jammy main
+    # - deb-src https://deb.nodesource.com/node_14.x focal main
+    - ppa:neovim-ppa/unstable
+
+- name: Install packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  loop:
+    - neovim
+    - nodejs
